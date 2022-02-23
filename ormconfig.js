@@ -1,3 +1,7 @@
+const env = process.env.NODE_ENV;
+
+require('dotenv').config({ path: `./.${env}.env`, override: true });
+
 module.exports = {
   type: process.env.DB_TYPE,
   host: process.env.DB_HOST,
@@ -7,12 +11,12 @@ module.exports = {
   database: process.env.POSTGRES_DB,
   synchronize: false,
   logging: false,
-  entities: ['dist/**/*model.js'],
-  migrations: ['dist/migration/**/*.js'],
-  subscribers: ['dist/subscriber/**/*.js'],
+  entities: ['src/common/**/*entity.ts'],
+  migrations: ['src/migrations/**/*.ts'],
+  subscribers: ['src/subscriber/**/*.ts'],
   cli: {
-    entitiesDir: 'dist/**/*model.js',
-    migrationsDir: 'dist/migration',
-    subscribersDir: 'dist/subscriber',
+    entitiesDir: 'src/common/**/*entity.ts',
+    migrationsDir: 'src/migrations',
+    subscribersDir: 'src/subscriber',
   },
 };
