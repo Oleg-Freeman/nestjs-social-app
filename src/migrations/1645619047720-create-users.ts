@@ -5,11 +5,26 @@ export class createUsers1645619047720 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "user" ("id" SERIAL NOT NULL, "firstName" character varying(255) NOT NULL, "lastName" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password" character varying(255) NOT NULL, "isDeleted" boolean NOT NULL DEFAULT true, "birthDay" date, "bio" character varying(255), "website" character varying(255), "location" character varying(255), "phone" character varying(255), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "users" (
+                "id" SERIAL NOT NULL,
+                "firstName" VARCHAR(255) NOT NULL,
+                "lastName" VARCHAR(255) NOT NULL,
+                "email" VARCHAR(255) NOT NULL UNIQUE,
+                "password" VARCHAR(255) NOT NULL,
+                "isDeleted" boolean NOT NULL DEFAULT true,
+                "birthDay" date,
+                "bio" VARCHAR(255),
+                "website" VARCHAR(255),
+                "location" VARCHAR(255),
+                "phone" VARCHAR(255) UNIQUE,
+                "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                "updatedAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                
+                CONSTRAINT "PK_cace4a159ff9f2512dd42373761" PRIMARY KEY ("id"))`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "user"`);
+    await queryRunner.query(`DROP TABLE "users" CASCADE`);
   }
 }

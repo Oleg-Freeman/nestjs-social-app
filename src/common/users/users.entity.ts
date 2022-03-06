@@ -1,21 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import {
   requiredStringFieldOptions,
   optionalStringFieldOptions,
+  Base,
 } from '../../resources/base';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn({ type: 'int', unsigned: true })
-  id: number;
-
+export class Users extends Base {
   @Column(requiredStringFieldOptions)
   firstName: string;
 
   @Column(requiredStringFieldOptions)
   lastName: string;
 
-  @Column(requiredStringFieldOptions)
+  @Column({ ...requiredStringFieldOptions, unique: true })
   email: string;
 
   @Column(requiredStringFieldOptions)

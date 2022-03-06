@@ -1,12 +1,5 @@
 import { ColumnOptions } from 'typeorm';
-
-interface ModelOptions {
-  maxStringFieldLength: number;
-}
-
-export const modelOptions: ModelOptions = {
-  maxStringFieldLength: 255,
-};
+import { modelOptions } from './validationRules';
 
 export const requiredStringFieldOptions: ColumnOptions = {
   type: 'varchar',
