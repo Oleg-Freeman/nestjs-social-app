@@ -1,5 +1,5 @@
 import { IsNotEmpty, Length } from 'class-validator';
-import { LogInUserDto } from './logInUser.dto';
+import { LogInUserDto } from './log-in-user.dto';
 import { modelOptions } from '../../../resources/base';
 import { IsPasswordMatch } from '../users.decorator';
 

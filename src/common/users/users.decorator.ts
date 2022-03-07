@@ -1,5 +1,5 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
-import { CreateUserDto } from './dto/createUser.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 export function IsPasswordMatch(property: string, validationOptions?: ValidationOptions) {
   return function (object: CreateUserDto, propertyName: string) {

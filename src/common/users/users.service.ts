@@ -4,9 +4,9 @@ import { genSalt, hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { Users } from './users.entity';
 import { Repository, FindOneOptions, EntityManager, getManager } from 'typeorm';
-import { CreateUserDto } from './dto/createUser.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { saltRoundsNumber } from '../../resources/base';
-import { LogInUserDto } from './dto/logInUser.dto';
+import { LogInUserDto } from './dto/log-in-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -83,5 +83,15 @@ export class UsersService {
     transactionManager?: EntityManager,
   ): Promise<Users> {
     return transactionManager.findOne(Users, id, options);
+  }
+
+  async getById(id: number): Promise<Users> {
+    const user = await this.userRepository.findOne(id);
+
+    if (!user) {
+      throw new HttpException({ error: 'User not found' }, HttpStatus.BAD_REQUEST);
+    }
+
+    return user;
   }
 }
