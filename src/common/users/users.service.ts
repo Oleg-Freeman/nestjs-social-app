@@ -9,14 +9,9 @@ import { saltRoundsNumber } from '../../resources/base';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(Users) private userRepository: Repository<Users>,
-  ) {}
+  constructor(@InjectRepository(Users) private userRepository: Repository<Users>) {}
 
-  async create(
-    body: CreateUserDto,
-    transactionManager: EntityManager,
-  ): Promise<{ user: Users; token: string }> {
+  async create(body: CreateUserDto, transactionManager: EntityManager): Promise<{ user: Users; token: string }> {
     const { password, lastName, firstName, email } = body;
 
     const salt = await genSalt(saltRoundsNumber);
@@ -38,11 +33,7 @@ export class UsersService {
     };
   }
 
-  async getOne(
-    id: number | null = null,
-    options: FindOneOptions | null = null,
-    transactionManager: EntityManager,
-  ) {
+  async getOne(id: number | null = null, options: FindOneOptions | null = null, transactionManager?: EntityManager) {
     return transactionManager.findOne(Users, id, options);
   }
 }
