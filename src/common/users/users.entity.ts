@@ -1,9 +1,5 @@
 import { Entity, Column } from 'typeorm';
-import {
-  requiredStringFieldOptions,
-  optionalStringFieldOptions,
-  Base,
-} from '../../resources/base';
+import { requiredStringFieldOptions, optionalStringFieldOptions, Base } from '../../resources/base';
 
 @Entity()
 export class Users extends Base {

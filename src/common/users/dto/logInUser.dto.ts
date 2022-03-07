@@ -9,8 +9,7 @@ export class LogInUserDto {
 
   @IsNotEmpty()
   @Matches(passwordRegEx, {
-    message:
-      'Password must contain uppercase and lowercase characters, numbers and special characters',
+    message: 'Password must contain uppercase and lowercase characters, numbers and special characters',
   })
   @Length(modelOptions.minPasswordLength, modelOptions.maxStringFieldLength)
   readonly password: string;

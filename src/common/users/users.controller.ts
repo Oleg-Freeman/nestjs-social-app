@@ -1,30 +1,22 @@
-import { Body, Controller, HttpCode, HttpStatus, HttpException, Post } from '@nestjs/common';
-import { getManager } from 'typeorm';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUser.dto';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
+import { LogInUserDto } from './dto/logInUser.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(HttpStatus.CREATED)
   async register(@Body() body: CreateUserDto): Promise<{ user: Users; token: string }> {
-    return await getManager().transaction(async (transactionManager) => {
-      const user = await this.userService.getOne(
-        null,
-        {
-          where: { email: body.email },
-        },
-        transactionManager,
-      );
+    return this.userService.create(body);
+  }
 
-      if (user) {
-        throw new HttpException({ error: 'Email is already exist' }, HttpStatus.BAD_REQUEST);
-      }
-
-      return this.userService.create(body, transactionManager);
-    });
+  @Post('log-in')
+  @HttpCode(HttpStatus.OK)
+  async logIn(@Body() body: LogInUserDto): Promise<{ user: Users; token: string }> {
+    return this.userService.logIn(body);
   }
 }
