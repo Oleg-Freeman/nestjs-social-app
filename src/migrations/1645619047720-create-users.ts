@@ -11,7 +11,7 @@ export class createUsers1645619047720 implements MigrationInterface {
                 "lastName" VARCHAR(255) NOT NULL,
                 "email" VARCHAR(255) NOT NULL UNIQUE,
                 "password" VARCHAR(255) NOT NULL,
-                "isDeleted" boolean NOT NULL DEFAULT true,
+                "isDeleted" boolean NOT NULL DEFAULT false,
                 "birthDay" date,
                 "bio" VARCHAR(255),
                 "website" VARCHAR(255),

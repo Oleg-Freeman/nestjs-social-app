@@ -1,11 +1,20 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { LogInUserDto } from './dto/log-in-user.dto';
 import { IdParamDto } from '../../resources/base/id-param.dto';
-import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { LoggedInResDto } from './dto/logged-in.res.dto';
+import { AuthGuard } from '../../resources/base/auth.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -69,5 +78,20 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   async getById(@Param() params: IdParamDto): Promise<Users> {
     return this.userService.getById(params.id);
+  }
+
+  @ApiOperation({ summary: 'Delete user profile' })
+  @ApiParam({
+    name: 'id',
+    description: 'user id',
+    allowEmptyValue: false,
+    example: 1,
+  })
+  @ApiNoContentResponse()
+  @UseGuards(AuthGuard)
+  @Delete('profile/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete(@Param() params: IdParamDto): Promise<void> {
+    await this.userService.delete(params.id);
   }
 }

@@ -52,7 +52,7 @@ export class UsersService {
       const user = await this.getOne(
         null,
         {
-          where: { email: body.email },
+          where: { email: body.email, isDeleted: false },
         },
         transactionManager,
       );
@@ -85,12 +85,17 @@ export class UsersService {
   }
 
   async getById(id: number): Promise<Users> {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne(id, { where: { isDeleted: false } });
 
     if (!user) {
       throw new HttpException({ error: 'User not found' }, HttpStatus.BAD_REQUEST);
     }
 
     return user;
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.getById(id);
+    await this.userRepository.update(id, { isDeleted: true });
   }
 }

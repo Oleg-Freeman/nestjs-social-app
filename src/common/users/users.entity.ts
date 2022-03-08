@@ -21,7 +21,7 @@ export class Users extends Base {
   password: string;
 
   @ApiProperty({ example: false })
-  @Column({ type: 'boolean', nullable: false, default: true })
+  @Column({ type: 'boolean', nullable: false, default: false })
   isDeleted: boolean;
 
   @ApiProperty({ example: 'string' })
