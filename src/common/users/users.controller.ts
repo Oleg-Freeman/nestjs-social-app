@@ -14,7 +14,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { LoggedInResDto } from './dto/logged-in.res.dto';
-import { AuthGuard } from '../../resources/base/auth.guard';
+import { AuthGuard } from '../../resources/auth';
 
 @ApiTags('Users')
 @Controller('users')

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './common/users/users.module';
+import { PostsModule } from './common/posts/posts.module';
 
 const nodeEnv = process.env.NODE_ENV;
 
@@ -12,6 +13,7 @@ const nodeEnv = process.env.NODE_ENV;
     }),
     TypeOrmModule.forRoot(),
     UsersModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [], // services

@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { requiredStringFieldOptions, optionalStringFieldOptions, Base } from '../../resources/base';
 import { ApiProperty } from '@nestjs/swagger';
+import { Posts } from '../posts/posts.entity';
 
 @Entity()
 export class Users extends Base {
@@ -43,4 +44,7 @@ export class Users extends Base {
   @ApiProperty({ example: 'string' })
   @Column(optionalStringFieldOptions)
   phone: string;
+
+  @OneToMany(() => Posts, (post) => post.user)
+  posts: Posts[];
 }
