@@ -1,16 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { genSalt, hash, compare } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
 import { Users } from './users.entity';
 import { Repository, FindOneOptions, EntityManager, getManager } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { saltRoundsNumber } from '../../resources/base';
 import { LogInUserDto } from './dto/log-in-user.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(Users) private userRepository: Repository<Users>) {}
+  constructor(@InjectRepository(Users) private userRepository: Repository<Users>, private jwtService: JwtService) {}
 
   async create(body: CreateUserDto): Promise<{ user: Users; token: string }> {
     const { password, lastName, firstName, email } = body;
@@ -38,8 +38,7 @@ export class UsersService {
         lastName,
       });
       const newUser = await transactionManager.save(userData);
-
-      const token = sign({ userId: newUser.id }, process.env.JWT_SECRET);
+      const token = this.jwtService.sign({ userId: newUser.id });
 
       return {
         user: newUser,
@@ -68,7 +67,7 @@ export class UsersService {
         throw new HttpException({ error: 'Wrong credentials, try again' }, HttpStatus.BAD_REQUEST);
       }
 
-      const token = sign({ userId: user.id }, process.env.JWT_SECRET);
+      const token = this.jwtService.sign({ userId: user.id });
 
       return {
         user,
