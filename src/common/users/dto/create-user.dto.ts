@@ -1,6 +1,6 @@
 import { IsNotEmpty, Length } from 'class-validator';
 import { LogInUserDto } from './log-in-user.dto';
-import { modelOptions } from '../../../resources/base';
+import { modelOptions } from '../../../resources';
 import { IsPasswordMatch } from '../users.decorator';
 import { ApiProperty } from '@nestjs/swagger';
 

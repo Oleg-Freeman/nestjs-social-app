@@ -4,7 +4,7 @@ import { genSalt, hash, compare } from 'bcrypt';
 import { Users } from './users.entity';
 import { Repository, FindOneOptions, EntityManager, getManager } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import { saltRoundsNumber } from '../../resources/base';
+import { saltRoundsNumber } from '../../resources';
 import { LogInUserDto } from './dto/log-in-user.dto';
 import { JwtService } from '@nestjs/jwt';
 

@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
-import { modelOptions, passwordRegEx } from '../../../resources/base';
+import { modelOptions, passwordRegEx } from '../../../resources';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class LogInUserDto {

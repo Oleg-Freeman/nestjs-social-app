@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { LogInUserDto } from './dto/log-in-user.dto';
-import { IdParamDto } from '../../resources/base/id-param.dto';
+import { IdParamDto } from '../../resources/id-param.dto';
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -14,7 +14,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { LoggedInResDto } from './dto/logged-in.res.dto';
-import { AuthGuard } from '../../resources/auth';
+import { AuthGuard } from '../auth/auth.guard';
 
 @ApiTags('Users')
 @Controller('users')

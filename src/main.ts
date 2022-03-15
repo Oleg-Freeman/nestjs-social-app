@@ -19,7 +19,7 @@ async function start() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/api/docs', app, document);
 
-  app.useGlobalPipes(new ValidationPipe({ enableDebugMessages: true }));
+  app.useGlobalPipes(new ValidationPipe({ enableDebugMessages: true, whitelist: true, forbidNonWhitelisted: true }));
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(port, () => console.log(`Server is running on port ${port}`));

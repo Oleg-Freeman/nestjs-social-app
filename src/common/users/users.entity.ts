@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { requiredStringFieldOptions, optionalStringFieldOptions, Base } from '../../resources/base';
+import { requiredStringFieldOptions, optionalStringFieldOptions, Base } from '../../resources';
 import { ApiProperty } from '@nestjs/swagger';
 import { Posts } from '../posts/posts.entity';
 

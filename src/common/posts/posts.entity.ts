@@ -1,4 +1,4 @@
-import { Base, requiredStringFieldOptions } from '../../resources/base';
+import { Base, requiredStringFieldOptions } from '../../resources';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Users } from '../users/users.entity';
