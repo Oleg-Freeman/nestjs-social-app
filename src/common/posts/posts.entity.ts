@@ -5,6 +5,8 @@ import { Users } from '../users/users.entity';
 
 @Entity()
 export class Posts extends Base {
+  @ApiProperty({ example: 1 })
+  @Column({ type: 'int', nullable: false })
   userId: number;
 
   @ApiProperty({ example: 'string' })

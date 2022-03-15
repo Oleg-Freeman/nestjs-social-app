@@ -15,6 +15,8 @@ import {
 } from '@nestjs/swagger';
 import { LoggedInResDto } from './dto/logged-in.res.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { User } from '../auth/auth.decorator';
+import { AuthDto } from '../auth/auth.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -91,7 +93,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Delete('profile/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async delete(@Param() params: IdParamDto): Promise<void> {
-    await this.userService.delete(params.id);
+  async delete(@Param() params: IdParamDto, @User() user: AuthDto): Promise<void> {
+    await this.userService.delete(params.id, user.userId);
   }
 }

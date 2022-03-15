@@ -94,7 +94,11 @@ export class UsersService {
     return user;
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number, userId: number): Promise<void> {
+    if (id !== userId) {
+      throw new HttpException({ error: 'You don`t have access to this' }, HttpStatus.BAD_REQUEST);
+    }
+
     await this.getById(id);
     await this.userRepository.update(id, { isDeleted: true });
   }
